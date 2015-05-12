@@ -8,7 +8,6 @@ indexnew(lua_State * L)
   d = lua_toboolean(L, 2);
   CXIndex *i;
   i = (CXIndex *) lua_newuserdata(L, sizeof(CXIndex *));
-  printf("Create a new index \n");
   luaL_getmetatable(L, "Clangc.Index_mt");
   lua_setmetatable(L, -2);
 
@@ -20,12 +19,9 @@ int
 index__gc(lua_State * L)
 {
   CXIndex idx = *(CXIndex *) lua_touserdata(L, 1);
-  printf("__gc call\n");
   if(idx)
   {
-    printf("dispose index\n");
     clang_disposeIndex(idx);
-    printf("dispose done\n");
   }
   return 0;
 }
