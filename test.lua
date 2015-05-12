@@ -28,4 +28,16 @@ TestIndexGlobalOptions = {}
     self.idx:set_global_options(flags)
     luaunit.assertEquals(flags, self.idx:get_global_options())
   end
-os.exit( luaunit.LuaUnit.run() )
+TestIndexTranslationUnit = {}
+  function TestIndexTranslationUnit:setUp()
+    self.idx = clangc.Index.new(false, false)
+  end
+  function TestIndexTranslationUnit:testCreateTUFromSourceFileNoCmdFail()
+  end
+  function TestIndexTranslationUnit:testCreateTUFromSourceFileNoCmd()
+  end
+  function TestIndexTranslationUnit:testCreateTUFromSourceFileCmdFail()
+  end
+  function TestIndexTranslationUnit:testCreateTUFromSourceFileCmd()
+  end
+os.exit(luaunit.LuaUnit.run())
