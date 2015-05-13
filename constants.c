@@ -1113,4 +1113,16 @@ lua_pushinteger(L, 16);
 lua_setfield(L, -2, "Skipparsedbodiesinsession");
 lua_setfield(L, -2,"IndexOptFlags");
 
+lua_newtable(L);
+lua_pushinteger(L, 0);
+lua_setfield(L, -2, "Success");
+lua_pushinteger(L, 1);
+lua_setfield(L, -2, "Failure");
+lua_pushinteger(L, 2);
+lua_setfield(L, -2, "Crashed");
+lua_pushinteger(L, 3);
+lua_setfield(L, -2, "Invalidarguments");
+lua_pushinteger(L, 4);
+lua_setfield(L, -2, "Astreaderror");
+lua_setfield(L, -2,"ErrorCode");
 }
