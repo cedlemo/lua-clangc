@@ -58,7 +58,15 @@ constants._h.puts <<EOF
 void init_clang_enums_to_constants(lua_State *L);
 EOF
 constants._c.puts create_tables_constants(enums)
-constants.close_all
+#puts create_tables_constants(enums)
+
+clang_c = "/usr/include/clang-c/CXErrorCode.h"
+parser = Rtruckboris::HeaderParser.new(clang_c, headerPaths)
+parser.parse(true)
+enums = parser.enums
+#puts enums.size
+constants._c.puts create_tables_constants(enums)
+#constants.close_all
 NEWLINE ="\n"
 O_BRACKET ="("
 C_BRACKET = ")"
