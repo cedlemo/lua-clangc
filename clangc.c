@@ -20,6 +20,7 @@
 #include "lauxlib.h"
 #include "constants.h"
 #include "indexlib.h"
+#include "translationunit.h"
 /*Compile with:
 gcc -shared -llua -lm -fPIC -o clangc.so clangc.c
 This module create a table with a value and return it
@@ -48,6 +49,17 @@ int luaopen_clangc(lua_State *L) {
 
   luaL_newlib(L, indexlib_classes_functions);
   lua_setfield(L, -2, "Index");
+  
+  /*Manage TranslationUnit class */
+  /*Create the metatable for TranslationUnit object*/
+  luaL_newmetatable(L, "Clangc.TranslationUnit_mt");
+  /*set metatable __gc field*/
+  lua_pushcfunction(L, translationunit__gc);
+  /* When TranslationUnit methods will have to be created
+  lua_pushvalue(L, -1); //duplicate the metatable
+  lua_setfield(L, -2, "__index"); //store the duplicate in the __index field
+  luaL_setfuncs(L, translationunit_instances_methods, 0); //store the fns in the metatable
+*/
   init_clang_enums_to_constants(L);
   return 1; //return 1 in order to return the table
 }
