@@ -67,10 +67,17 @@ index_create_translationunit_fromsourcefile(lua_State *L)
   const char * source_file = NULL;
   //First parameter is a string
   source_file = L_2_CSTRING(L, 2);  
-//  if(lua_isstring(L, 2))
-//    source_file = lua_tostring(L, 2);
   //second parameter is a table/array of string
-  L_2_CSTRINGARRAY(L, 3)
-  SENTINEL("%s", source_file);
+  if(lua_istable(L, 3))
+  {
+    int len = luaL_len(L, 3);
+    char * carray[len];
+    len = L_2_CSTRINGARRAY(L, 3, len, carray);
+  }
+  CXTranslationUnit tu;
+  tu = clang_createTranslationUnitFromSourceFile( idx,
+                                                  source_file,
+                                                  len, carray, 0, 0); // TODO manage unsaved files
+   
   return 1;
 }
