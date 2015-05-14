@@ -28,15 +28,22 @@
 #define L_2_CSTRING(L, i)\
 lua_isstring(L,i)? lua_tostring(L, i) : NULL
 //Lua array to c array of string pointers
-#define L_2_CSTRINGARRAY(L, i)\
-if(lua_istable(L, i))\
-{\
-  int len = luaL_len(L, i);\
-  SENTINEL("size %d",len);\
-  if(len)\
-  {\
-  }\
-}\
-else\
-  SENTINEL("Not a table");
+static int lua_to_c_string_array(lua_State *L, int stack_idx, int nb_str, char *carray[])
+{
+  int real_nb_str = 0;
+  int i;
+  for(i=1;i<=nb_str;i++)
+  {
+    lua_rawgeti(L, stack_idx, i);
+    const char *ptr = L_2_CSTRING(L, -1);
+    lua_pop(L, 1);
+    if(ptr)
+    {
+      carray[real_nb_str] = (char *) ptr;
+      real_nb_str += 1;
+    }
+  }
+  return real_nb_str;
+}
+#define L_2_CSTRINGARRAY(L, i, n , arr) lua_to_c_string_array(L, i, n, arr)
 #endif //MACROS_H
