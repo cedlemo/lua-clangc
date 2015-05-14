@@ -41,4 +41,8 @@ print(type(a))
 
 for k, v in pairs(clangc) do
   print(k .. " : " .. type(v))
-end 
+end
+
+a:create_translationunit_from_source_file("toto",{"titi","tata"}) 
+a:create_translationunit_from_source_file("toto",{"titi","tata"}) 
+a:create_translationunit_from_source_file("toto",{}) 
