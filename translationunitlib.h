@@ -20,6 +20,7 @@
 #include "lua.h"
 #include "lauxlib.h"
 #include "clang-c/Index.h"
+#include "macros.h"
 int _alloc_translationunit(lua_State *);
 int translationunit__gc(lua_State *);
 #endif

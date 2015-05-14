@@ -20,6 +20,7 @@
 #include "lua.h"
 #include "lauxlib.h"
 #include "clang-c/Index.h"
+#include "macros.h"
 int indexnew(lua_State *);
 int index__gc(lua_State *);
 int indexgetglobaloptions(lua_State *);

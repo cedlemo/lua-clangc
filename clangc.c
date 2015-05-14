@@ -18,9 +18,10 @@
 #include <stdio.h>
 #include "lua.h"
 #include "lauxlib.h"
+#include "macros.h"
 #include "constants.h"
 #include "indexlib.h"
-#include "translationunit.h"
+#include "translationunitlib.h"
 /*Compile with:
 gcc -shared -llua -lm -fPIC -o clangc.so clangc.c
 This module create a table with a value and return it
@@ -34,7 +35,6 @@ static const struct luaL_Reg indexlib_instances_methods[] = {
   {"set_global_options", indexsetglobaloptions},
   {NULL, NULL}
 };
-//TODO add OO p299 style
 int luaopen_clangc(lua_State *L) {
   lua_newtable(L); //create the main module table
 
