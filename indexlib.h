@@ -21,8 +21,9 @@
 #include "lauxlib.h"
 #include "clang-c/Index.h"
 #include "macros.h"
-int indexnew(lua_State *);
+int index_new(lua_State *);
 int index__gc(lua_State *);
-int indexgetglobaloptions(lua_State *);
-int indexsetglobaloptions(lua_State *);
+int index_get_globaloptions(lua_State *);
+int index_set_globaloptions(lua_State *);
+int index_create_translationunit_fromsourcefile(lua_State *);
 #endif

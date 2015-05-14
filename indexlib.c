@@ -18,7 +18,7 @@
 #include "indexlib.h"
 #include <stdio.h>
 int
-indexnew(lua_State * L)
+index_new(lua_State * L)
 {
   int e, d;
   e = lua_toboolean(L, 1);
@@ -43,7 +43,7 @@ index__gc(lua_State * L)
   return 0;
 }
 int
-indexgetglobaloptions(lua_State * L)
+index_get_globaloptions(lua_State * L)
 {
   CXIndex idx = *(CXIndex *) lua_touserdata(L, 1);
   unsigned int o;
@@ -52,7 +52,7 @@ indexgetglobaloptions(lua_State * L)
   return 1;
 }
 int
-indexsetglobaloptions(lua_State * L)
+index_set_globaloptions(lua_State * L)
 {
   CXIndex idx = *(CXIndex *) lua_touserdata(L, 1);
   unsigned int o;
@@ -60,4 +60,17 @@ indexsetglobaloptions(lua_State * L)
   clang_CXIndex_setGlobalOptions(idx, o);
   return 0;
 }
-
+int
+index_create_translationunit_fromsourcefile(lua_State *L)
+{
+  CXIndex idx = *(CXIndex *) lua_touserdata(L, 1);
+  const char * source_file = NULL;
+  //First parameter is a string
+  source_file = L_2_CSTRING(L, 2);  
+//  if(lua_isstring(L, 2))
+//    source_file = lua_tostring(L, 2);
+  //second parameter is a table/array of string
+  L_2_CSTRINGARRAY(L, 3)
+  SENTINEL("%s", source_file);
+  return 1;
+}

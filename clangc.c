@@ -27,12 +27,13 @@ gcc -shared -llua -lm -fPIC -o clangc.so clangc.c
 This module create a table with a value and return it
 */
 static const struct luaL_Reg indexlib_classes_functions[] = {
-  {"new", indexnew},
+  {"new", index_new},
   {NULL, NULL}
 };
 static const struct luaL_Reg indexlib_instances_methods[] = {
-  {"get_global_options", indexgetglobaloptions},
-  {"set_global_options", indexsetglobaloptions},
+  {"get_global_options", index_get_globaloptions},
+  {"set_global_options", index_set_globaloptions},
+  {"create_translationunit_from_source_file", index_create_translationunit_fromsourcefile},
   {NULL, NULL}
 };
 int luaopen_clangc(lua_State *L) {
@@ -52,9 +53,9 @@ int luaopen_clangc(lua_State *L) {
   
   /*Manage TranslationUnit class */
   /*Create the metatable for TranslationUnit object*/
-  luaL_newmetatable(L, "Clangc.TranslationUnit_mt");
+//  luaL_newmetatable(L, "Clangc.TranslationUnit_mt");
   /*set metatable __gc field*/
-  lua_pushcfunction(L, translationunit__gc);
+//  lua_pushcfunction(L, translationunit__gc);
   /* When TranslationUnit methods will have to be created
   lua_pushvalue(L, -1); //duplicate the metatable
   lua_setfield(L, -2, "__index"); //store the duplicate in the __index field

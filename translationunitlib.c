@@ -37,4 +37,3 @@ translationunit__gc(lua_State * L)
   }
   return 0;
 }
-int
