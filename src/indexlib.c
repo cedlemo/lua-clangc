@@ -71,13 +71,13 @@ index_create_translationunit_fromsourcefile(lua_State *L)
   if(lua_istable(L, 3))
   {
     int len = luaL_len(L, 3);
-    char * carray[len];
+    const char * carray[len];
     len = L_2_CSTRINGARRAY(L, 3, len, carray);
+    CXTranslationUnit tu;
+    tu = clang_createTranslationUnitFromSourceFile( idx,
+                                                    source_file,
+                                                    len, carray, 0, 0); // TODO manage unsaved files
   }
-  CXTranslationUnit tu;
-  tu = clang_createTranslationUnitFromSourceFile( idx,
-                                                  source_file,
-                                                  len, carray, 0, 0); // TODO manage unsaved files
    
   return 1;
 }
