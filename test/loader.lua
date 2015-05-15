@@ -16,6 +16,9 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
+--function __FILE__() return debug.getinfo(2,'S').source end
+--function __LINE__() return debug.getinfo(2, 'l').currentline end
+--package.path = package.path .. ";../src/?.so;src/?.so"
 local clangc = require("clangc")
 print("clanc return a : " .. type(clangc))
 
