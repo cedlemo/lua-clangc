@@ -10,9 +10,9 @@ AC_CONFIG_HEADERS([config.h])
 AC_PROG_CC(clang gcc)
 
 # Checks for libraries.
-PKG_CHECK_MODULES([DEPS], [lclang lua])
+PKG_CHECK_MODULES([DEPS], [lua])
 # Checks for header files.
-AC_CHECK_HEADERS([string.h stdlib.h])
+AC_CHECK_HEADERS([string.h stdlib.h clang-c/Index.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
@@ -20,7 +20,6 @@ AC_CHECK_HEADERS([string.h stdlib.h])
 AM_INIT_AUTOMAKE(1.13 dist-bzip2 foreign subdir-objects)
 LT_PREREQ(2.4)
 LT_INIT
-AX_CXX_TYPE_UNIQUE_PTR
 AC_CONFIG_FILES([
   Makefile
 ])
