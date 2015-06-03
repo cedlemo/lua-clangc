@@ -6,15 +6,15 @@ Just a hobby project for now.
 
 # Build:
 
-    ./autogen.sh
+If your current version of lua is 5.3 for example:
+
+    ./autogen.sh --libdir=/usr/lib/lua/5.3
     make
+    sudo make install
 
-# Test:
-
-After the build phase, use the clangc.so file in the src/ directory.
 
 # Clean:
 
-    make maintainer-clean
+    sudo make maintainer-clean
 
   
