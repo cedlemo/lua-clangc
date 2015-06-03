@@ -1,6 +1,25 @@
 #!/usr/bin/env ruby 
 require "rtruckboris"
 
+LICENSE = <<EOF
+/*
+ * lua-clangc lua bindings for the C interface of Clang
+ * Copyright (C) 2015  cedlemo <cedlemo@gmx.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+EOF
 
 clang_c = "/usr/include/clang-c/Index.h"
 headerPaths = []
@@ -36,7 +55,7 @@ def create_tables_constants(enums)
   s+="}\n"
 end
 enums = parser.enums
-puts enums.size
+
 class OutputFiles
   attr_reader :_c, :_h
   def initialize(name)
@@ -51,13 +70,16 @@ class OutputFiles
   end
 end 
 constants = OutputFiles.new("constants")
+constants._h.puts LICENSE
+constants._c.puts LICENSE
+
 constants._h.puts <<EOF
 #include "lua.h" 
 void init_clang_enums_to_constants(lua_State *L);
 EOF
 
 clang_c_errors = "/usr/include/clang-c/CXErrorCode.h"
-parser = Rtruckboris::HeaderParser.new(clang_c_error, headerPaths)
+parser = Rtruckboris::HeaderParser.new(clang_c_errors, headerPaths)
 parser.parse(true)
 
 enums += parser.enums
