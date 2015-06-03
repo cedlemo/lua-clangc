@@ -22,10 +22,6 @@
 #include "constants.h"
 #include "indexlib.h"
 #include "translationunitlib.h"
-/*Compile with:
-gcc -shared -llua -lm -fPIC -o clangc.so clangc.c
-This module create a table with a value and return it
-*/
 static const struct luaL_Reg indexlib_classes_functions[] = {
   {"new", index_new},
   {NULL, NULL}
