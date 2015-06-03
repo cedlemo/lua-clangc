@@ -16,6 +16,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
+package.cpath = package.cpath .. ";../src/?.so;../.libs/?.so;src/?.so"
 local clangc = require("clangc")
 local luaunit = require("luaunit")
 
@@ -25,6 +26,9 @@ TestClangcModule = {}
   end
   function TestClangcModule:testIndexIsTable()
     luaunit.assertIsTable(clangc.Index)
+  end
+  function TestClangcModule:testVersion()
+--    luaunit.assertIsString(clangc.version())
   end
 
 TestIndexCreation = {}
