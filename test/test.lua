@@ -28,7 +28,7 @@ TestClangcModule = {}
     luaunit.assertIsTable(clangc.Index)
   end
   function TestClangcModule:testVersion()
---    luaunit.assertIsString(clangc.version())
+    luaunit.assertIsString(clangc.version())
   end
 
 TestIndexCreation = {}
