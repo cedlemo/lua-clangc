@@ -20,6 +20,7 @@
 #include "lauxlib.h"
 #include "macros.h"
 #include "constants.h"
+#include "clangc_module_functions.h"
 #include "indexlib.h"
 #include "translationunitlib.h"
 static const struct luaL_Reg indexlib_classes_functions[] = {
