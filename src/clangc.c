@@ -23,6 +23,7 @@
 #include "clangc_module_functions.h"
 #include "indexlib.h"
 #include "translationunitlib.h"
+
 static const struct luaL_Reg indexlib_classes_functions[] = {
   {"new", index_new},
   {NULL, NULL}
@@ -36,6 +37,20 @@ static const struct luaL_Reg indexlib_instances_methods[] = {
 int luaopen_clangc(lua_State *L) {
   lua_newtable(L); //create the main module table
 
+/*
+* Create Clangc module functions
+*/
+  lua_pushcfunction(L, clangc_get_version);
+  lua_setfield(L, -2, "version");
+
+/*
+* Create the clangc constants
+*/
+  init_clang_enums_to_constants(L);
+/*
+* Index Class
+*/
+  /*Metatable for Index class*/
   luaL_newmetatable(L, "Clangc.Index_mt");
   /*set metatable __gc field*/
   lua_pushcfunction(L, index__gc);
@@ -44,7 +59,8 @@ int luaopen_clangc(lua_State *L) {
   lua_pushvalue(L, -1); //duplicate the metatable
   lua_setfield(L, -2, "__index"); //store the duplicate in the __index field
   luaL_setfuncs(L, indexlib_instances_methods, 0); //store the fns in the metatable  
-
+  
+  /*Create the Index table used as Constructor*/
   luaL_newlib(L, indexlib_classes_functions);
   lua_setfield(L, -2, "Index");
   
@@ -58,6 +74,5 @@ int luaopen_clangc(lua_State *L) {
   lua_setfield(L, -2, "__index"); //store the duplicate in the __index field
   luaL_setfuncs(L, translationunit_instances_methods, 0); //store the fns in the metatable
 */
-  init_clang_enums_to_constants(L);
   return 1; //return 1 in order to return the table
 }

@@ -17,3 +17,10 @@
 */
 
 #include "clangc_module_functions.h"
+int
+clangc_get_version(lua_State * L)
+{
+  CXString str = clang_getClangVersion();
+  lua_pushstring(L, clang_getCString(str));
+  return 1;
+}

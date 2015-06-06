@@ -17,5 +17,10 @@
 */
 #ifndef CLANGC_MODULE_FUNCTIONS_H
 #define CLANGC_MODULE_FUNCTIONS_H
-
+#include "lua.h"
+#include "lauxlib.h"
+#include "clangc-c/Index.h"
+#include "macros.h"
+int
+clangc_get_version(lua_State * L);
 #endif //CLANGC_MODULE_FUNCTIONS_H
