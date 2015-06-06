@@ -38,7 +38,7 @@ int luaopen_clangc(lua_State *L) {
   luaL_newmetatable(L, "Clangc.Index_mt");
   /*set metatable __gc field*/
   lua_pushcfunction(L, index__gc);
-  lua_setfield(L, -2, "__gc");
+  lua_setfield(L, -2, "__gc"); //pop the last element of the stack to the table at stack index
   /*set metatble __index field to metatable */
   lua_pushvalue(L, -1); //duplicate the metatable
   lua_setfield(L, -2, "__index"); //store the duplicate in the __index field
