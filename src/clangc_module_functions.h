@@ -23,4 +23,6 @@
 #include "macros.h"
 int
 clangc_get_version(lua_State * L);
+int
+clangc_get_default_diagnostic_display_options(lua_State *L);
 #endif //CLANGC_MODULE_FUNCTIONS_H

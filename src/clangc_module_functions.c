@@ -24,3 +24,11 @@ clangc_get_version(lua_State * L)
   lua_pushstring(L, clang_getCString(str));
   return 1;
 }
+int
+clangc_get_default_diagnostic_display_options(lua_State * L)
+{
+  unsigned int o;
+  o = clang_defaultDiagnosticDisplayOptions();
+  lua_pushinteger(L, o); 
+  return 1;
+}
