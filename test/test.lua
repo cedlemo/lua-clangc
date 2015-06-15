@@ -31,7 +31,9 @@ TestClangcModule = {}
     luaunit.assertIsFunction(clangc.version)
     luaunit.assertIsString(clangc.version())
   end
-
+  function TestClangcModule:testDefaultDiagnosticDisplayOptions()
+    luaunit.assertIsNumber(clangc.default_diagnostic_display_options())
+  end
 TestIndexCreation = {}
   function TestIndexCreation:setUp()
     self.idx = clangc.Index.new(true, true)
