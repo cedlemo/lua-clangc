@@ -11,6 +11,10 @@ AC_PROG_CC(clang gcc)
 
 # Checks for libraries.
 PKG_CHECK_MODULES([DEPS], [lua])
+LUA_VERSION=$(pkg-config --modversion lua | awk -F "." '{print $1"."$2}')
+AC_SUBST([LUA_VERSION])
+
+libdir=$prefix/lib/lua/$LUA_VERSION/clangc
 # Checks for header files.
 AC_CHECK_HEADERS([string.h stdlib.h clang-c/Index.h])
 
