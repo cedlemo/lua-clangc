@@ -1,0 +1,9 @@
+--package.cpath=package.cpath .. ";@libdir@/?.so"
+local clangc = require("clangc.core")
+local constants = require("clangc.constants")
+
+for k,v in pairs(constants) do
+  clangc[k] = v
+end
+
+return clangc

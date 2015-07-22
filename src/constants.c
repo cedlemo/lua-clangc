@@ -15,7 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "constants.h"
+#include "lua.h"
+#include "lauxlib.h"
+#include "macros.h"
+
 void init_clang_enums_to_constants(lua_State *L){
 lua_newtable(L);
 lua_pushinteger(L, 0);
@@ -1126,4 +1129,14 @@ lua_pushinteger(L, 4);
 lua_setfield(L, -2, "Astreaderror");
 lua_setfield(L, -2,"ErrorCode");
 
+}
+
+int luaopen_clangc_constants(lua_State *L)
+{
+  lua_newtable(L); //create the main module table
+/*
+* Create the clangc constants
+*/
+  init_clang_enums_to_constants(L);
+  return 1; //return the table
 }

@@ -26,5 +26,6 @@ LT_PREREQ(2.4)
 LT_INIT
 AC_CONFIG_FILES([
   Makefile
+  src/init.lua
 ])
 AC_OUTPUT

@@ -18,7 +18,6 @@
 #include "lua.h"
 #include "lauxlib.h"
 #include "macros.h"
-#include "constants.h"
 #include "clangc_module_functions.h"
 #include "indexlib.h"
 #include "translationunitlib.h"
@@ -33,7 +32,7 @@ static const struct luaL_Reg indexlib_instances_methods[] = {
   {"create_translationunit_from_source_file", index_create_translationunit_fromsourcefile},
   {NULL, NULL}
 };
-int luaopen_clangc(lua_State *L) {
+int luaopen_clangc_core(lua_State *L) {
 //  SENTINEL("### luaopen %d ###", lua_gettop(L));
   lua_newtable(L); //create the main module table
 //  SENTINEL("### newtable %d ###", lua_gettop(L));
@@ -74,16 +73,12 @@ int luaopen_clangc(lua_State *L) {
 * Create Clangc module functions
 */
   lua_pushcfunction(L, clangc_get_version);
-//  SENTINEL("### Store the version fn int the stack %d ###", lua_gettop(L));
+  SENTINEL("### Store the version fn int the stack %d ###", lua_gettop(L));
   lua_setfield(L, -2, "version");
-//  SENTINEL("### Store the version fn in the main table %d ###", lua_gettop(L));
+  SENTINEL("### Store the version fn in the main table %d ###", lua_gettop(L));
   lua_pushcfunction(L, clangc_get_default_diagnostic_display_options);
   lua_setfield(L, -2, "default_diagnostic_display_options");
-/*
-* Create the clangc constants
-*/
-  init_clang_enums_to_constants(L);
-//  SENTINEL("### Store the constants table in the main table%d ###", lua_gettop(L));
+  SENTINEL("### Store the constants table in the main table%d ###", lua_gettop(L));
 
   return 1; //return 1 in order to return the table
 }
