@@ -902,19 +902,19 @@ function M.assertItemsEquals(actual, expected)
     end
 end
 
-assert_equals = assertEquals
-assert_not_equals = assertNotEquals
-assert_error = assertError
-assert_true = assertTrue
-assert_false = assertFalse
-assert_is_number = assertIsNumber
-assert_is_string = assertIsString
-assert_is_table = assertIsTable
-assert_is_boolean = assertIsBoolean
-assert_is_nil = assertIsNil
-assert_is_function = assertIsFunction
-assert_is = assertIs
-assert_not_is = assertNotIs
+M.assert_equals = M.assertEquals
+M.assert_not_equals = M.assertNotEquals
+M.assert_error = M.assertError
+M.assert_true = M.assertTrue
+M.assert_false = M.assertFalse
+M.assert_is_number = M.assertIsNumber
+M.assert_is_string = M.assertIsString
+M.assert_is_table = M.assertIsTable
+M.assert_is_boolean = M.assertIsBoolean
+M.assert_is_nil = M.assertIsNil
+M.assert_is_function = M.assertIsFunction
+M.assert_is = M.assertIs
+M.assert_not_is = M.assertNotIs
 
 
 if EXPORT_ASSERT_TO_GLOBALS then
@@ -946,6 +946,20 @@ if EXPORT_ASSERT_TO_GLOBALS then
     assertIs               = M.assertIs
     assertNotIs            = M.assertNotIs
     assertItemsEquals      = M.assertItemsEquals
+    -- aliases
+    assert_equals          = M.assertEquals
+    assert_not_equals      = M.assertNotEquals
+    assert_error           = M.assertError
+    assert_true            = M.assertTrue
+    assert_false           = M.assertFalse
+    assert_is_number       = M.assertIsNumber
+    assert_is_string       = M.assertIsString
+    assert_is_table        = M.assertIsTable
+    assert_is_boolean      = M.assertIsBoolean
+    assert_is_nil          = M.assertIsNil
+    assert_is_function     = M.assertIsFunction
+    assert_is              = M.assertIs
+    assert_not_is          = M.assertNotIs
 end
 
 ----------------------------------------------------------------
@@ -1722,7 +1736,7 @@ local LuaUnit_MT = { __index = M.LuaUnit }
             return debug.traceback(e..SPLITTER, 3)
         end
 
-        local ok=true, fullErrMsg, stackTrace, errMsg, t
+        local ok, fullErrMsg, stackTrace, errMsg, t
         if classInstance then
             -- stupid Lua < 5.2 does not allow xpcall with arguments so let's use a workaround
             ok, fullErrMsg = xpcall( function () methodInstance(classInstance) end, err_handler )
@@ -1756,7 +1770,7 @@ local LuaUnit_MT = { __index = M.LuaUnit }
         -- When executing a test function, className and classInstance must be nil
         -- When executing a class method, all parameters must be set
 
-        local ok, errMsg, stackTrace
+        local ok, errMsg, stackTrace, prettyFuncName
 
         if type(methodInstance) ~= 'function' then
             error( tostring(methodName)..' must be a function, not '..type(methodInstance))
@@ -1821,7 +1835,7 @@ local LuaUnit_MT = { __index = M.LuaUnit }
         local result = {}
 
         for i,v in ipairs( listOfNameAndInst ) do
-            name, instance = v[1], v[2]
+            local name, instance = v[1], v[2]
             if M.LuaUnit.isFunction(instance) then
                 table.insert( result, { name, instance } )
             else 
@@ -1849,7 +1863,7 @@ local LuaUnit_MT = { __index = M.LuaUnit }
         local excluded = {}
 
         for i,v in ipairs( listOfNameAndInst ) do
-            name, instance = v[1], v[2]
+            local name, instance = v[1], v[2]
 
             if patternFilter and not M.LuaUnit.patternInclude( patternFilter, name ) then
                 table.insert( excluded, v )
@@ -2013,7 +2027,7 @@ local LuaUnit_MT = { __index = M.LuaUnit }
             self.patternFilter = options.pattern
         end
 
-        testNames = options['testNames']
+        local testNames = options['testNames']
 
         if testNames == nil then
             testNames = M.LuaUnit.collectTests()
