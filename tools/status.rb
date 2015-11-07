@@ -93,7 +93,7 @@ end
 
 # Get clang functions in the C code written
 CURRENT_PATH = File.expand_path(File.dirname(__FILE__))
-SRC_FILES = Dir.glob("#{CURRENT_PATH}/../src/*.[c|h]")
+SRC_FILES = Dir.glob("#{CURRENT_PATH}/../ext/clangc/*.[c|h]")
 MANAGED_FUNCTIONS = []
 SRC_FILES.each do |file|
   f = File.open(file, 'r')
@@ -138,5 +138,10 @@ print color.green, count.to_s, color.clear, "/", color.black, functions.size,
 
 # print specific informations
 sumup_module_functions(functions, MANAGED_FUNCTIONS)
-sumup_objects(functions, ["CXIndex", "CXTranslationUnit", "CXDiagnostic", "CXSourceRange", "CXSourceLocation"], MANAGED_FUNCTIONS)
+sumup_objects(functions, ["CXIndex", "CXTranslationUnit", "CXDiagnostic", "CXFile","CXSourceRange", "CXSourceLocation", "CXCursor", "CXType"], MANAGED_FUNCTIONS)
+
+
+print "\n", color.green, count.to_s, color.clear, "/", color.black, functions.size,
+      color.clear, " functions wrapped => ", color.yellow, 
+      (count/(functions.size*1.00)) * 100, color.clear, "%\n\n"
 
