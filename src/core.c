@@ -33,6 +33,19 @@ static const struct luaL_Reg indexlib_instances_methods[] = {
   {NULL, NULL}
 };
 int luaopen_clangc_core(lua_State *L) {
+/*
+* TranslationUnit class
+*/
+  /*Create the metatable for TranslationUnit object*/
+  luaL_newmetatable(L, "Clangc.TranslationUnit_mt");
+  /*set metatable __gc field*/
+  lua_pushcfunction(L, translationunit__gc);
+  lua_setfield(L, -2, "__gc");
+  /* When TranslationUnit methods will have to be created*/
+  lua_pushvalue(L, -1); //duplicate the metatable
+  lua_setfield(L, -2, "__index"); //store the duplicate in the __index field
+  //luaL_setfuncs(L, translationunit_instances_methods, 0); //store the fns in the metatable
+ 
   lua_newtable(L);
 
 /*
@@ -47,18 +60,7 @@ int luaopen_clangc_core(lua_State *L) {
   luaL_newlib(L, indexlib_classes_functions);
   lua_setfield(L, -2, "Index");
 
-/*
-* TranslationUnit class
-*/
-  /*Create the metatable for TranslationUnit object*/
-  //luaL_newmetatable(L, "Clangc.TranslationUnit_mt");
-  /*set metatable __gc field*/
-  //lua_pushcfunction(L, translationunit__gc);
-  /* When TranslationUnit methods will have to be created
-  lua_pushvalue(L, -1); //duplicate the metatable
-  lua_setfield(L, -2, "__index"); //store the duplicate in the __index field
-  luaL_setfuncs(L, translationunit_instances_methods, 0); //store the fns in the metatable
-  */
+ 
 
 /*
 * Create Clangc module functions
