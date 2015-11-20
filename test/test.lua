@@ -19,7 +19,7 @@
 --package.cpath = package.cpath .. ";../src/?.so;../.libs/?.so;src/?.so"
 local clangc = require("clangc")
 local luaunit = require("luaunit")
-
+local utils = require("utils")
 TestClangcModule = {}
   function TestClangcModule:testHaveIndex()
     luaunit.assertNotNil(clangc.Index)
@@ -59,6 +59,9 @@ TestIndexTranslationUnit = {}
   function TestIndexTranslationUnit:testCreateTUFromSourceFileNoCmdFail()
   end
   function TestIndexTranslationUnit:testCreateTUFromSourceFileNoCmd()
+    local tu = self.idx:create_translationunit_from_source_file(utils.SOURCE_FILE,
+                                                                 utils.CLANG_HEADERS_PATH)
+    luaunit.assertEquals( type(tu), 'userdata')
   end
   function TestIndexTranslationUnit:testCreateTUFromSourceFileCmdFail()
   end
