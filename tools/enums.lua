@@ -42,7 +42,7 @@ end
 
 headers_paths = {}
 headers_paths[1] = gcc_lib_base .. '/' .. last .. '/' .. 'include'
-headers_paths[2] = 'usr/include'
+headers_paths[2] = '/usr/include'
 headers_paths[3] = '/usr/include/clang-c'
 
 clangc_source = '/usr/include/clang-c/Index.h'
@@ -69,11 +69,8 @@ local function to_snake_case(a_string)
   if not a_string:match("[A-Z]") or not a_string:match("[a-z]") then
     return a_string
   else
-    s = a_string:gsub("(%a+)([A-Z][a-z]%a*)","%1_%2")
-    s = s:gsub("(%a+)([A-Z][a-z]%a*)","%1_%2")
-    s = s:gsub("(%a+)([A-Z][a-z]%a*)","%1_%2")
-    s = s:gsub("(%a+)([A-Z][a-z]%a*)","%1_%2")
-    s = s:gsub("(%a+)([A-Z][a-z]%a*)","%1_%2")
+    s = a_string:gsub("([a-z]+)([A-Z][a-z]%a*)","%1_%2")
+    s = a_string:gsub("([A-Z]+)([A-Z][a-z]%a*)","%1_%2")
     s = s:gsub("([a-z]+)([A-Z]+)","%1_%2")
     return s
   end
