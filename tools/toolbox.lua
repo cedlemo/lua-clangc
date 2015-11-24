@@ -82,7 +82,8 @@ function Clangparser:new (path)
   return p
 end
 
-function Clangparser:parse()
+function Clangparser:parse(main_file)
+  local main_file = main_file or false
   parser = truckboris.HeaderParser()
   parser:add_source_file(self.source)
   for _,h in ipairs(self.headers_paths) do
@@ -91,7 +92,7 @@ function Clangparser:parse()
 
   self.parser = parser
 
-  return parser:parse()
+  return parser:parse(main_file)
 end
 
 return {
