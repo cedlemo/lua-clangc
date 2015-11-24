@@ -1,2 +1,3 @@
+check usage of Clangparser:parse(bool) in tools and tests
 remove debugging outputs
 make the TranslationUnit obkect constructor functional
