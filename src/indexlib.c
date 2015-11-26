@@ -73,8 +73,12 @@ index_create_translationunit_fromsourcefile(lua_State *L)
     int len = luaL_len(L, 3);
     const char * carray[len];
     len = L_2_CSTRINGARRAY(L, 3, len, carray);
-    CXTranslationUnit tu;
-    tu = clang_createTranslationUnitFromSourceFile( idx,
+    CXTranslationUnit  * tu;
+
+    tu = (CXTranslationUnit *) lua_newuserdata(L, sizeof(CXTranslationUnit *));
+    luaL_getmetatable(L, "Clangc.TranslationUnit_mt");
+    lua_setmetatable(L, -2);
+    *tu = clang_createTranslationUnitFromSourceFile( idx,
                                                     source_file,
                                                     len, carray, 0, 0); // TODO manage unsaved files
   }
