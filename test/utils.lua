@@ -11,6 +11,7 @@ for version in lfs.dir(clang_lib) do
 end
 
 local utils = {
+  lfs = lfs,
   -- Good C test file
   SOURCE_FILE = PATH .. '/source1.c',
   -- Good C test file with gnu-binary-literal option warning
