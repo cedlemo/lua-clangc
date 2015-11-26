@@ -20,6 +20,7 @@
 local clangc = require("clangc")
 local luaunit = require("luaunit")
 local utils = require("utils")
+
 TestClangcModule = {}
   function TestClangcModule:testHaveIndex()
     luaunit.assertNotNil(clangc.Index)
